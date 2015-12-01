@@ -30,7 +30,6 @@ $(document).ready(function(){
     $('#top-display').html(equation);
     $("#lower-display").html(result);
     $("#rolling-display").html('');
-    console.log('gren');
     return result;
   }
 
@@ -51,7 +50,7 @@ $(document).ready(function(){
 
   function rollingEval(){
     if(input == '+'|| input == '-' || input == '/' || input == '*' || input == '%'){
-      console.log('fire');
+
     }else{
     var equation = $('#lower-display').text();
     var rollingResult = eval(equation);
