@@ -1,18 +1,31 @@
 $(document).ready(function(){
-   var newNum = [];
    var input = [];
    var result= [];
    var equation = [];
    var operator = ['+', '*', '/', '%'];
+   var previousKey = [];
+   getViewport()
 
   $(".calc-button").click(function() {
     input = (this.textContent);
-    if($("#lower-display").text() == 0 ){
+
+    if($("#lower-display").text() == 0){
+      $("#lower-display").html('');
+    }else if((previousKey == '+'|| previousKey == '-' || previousKey == '/' || previousKey == '*' || previousKey == '%') && 
+             (input == '+'|| input == '-' || input == '/' || input == '*' || input == '%') ){
+    alert('input error')
+    return
+    }
+
+    if (previousKey == '=' && (!(input == '+'|| input =='-' || input == '/' || input == '*' || input == '%'))){
       $("#lower-display").html('');
     }
+
     $("#lower-display").append(input);
+    previousKey = input;
   });
 
+// try to fix
   $("body").on("click", "#equal", function(){
     equation = $('#lower-display').text();
     evaluate(equation);
@@ -30,6 +43,7 @@ $(document).ready(function(){
     $('#top-display').html(equation);
     $("#lower-display").html(result);
     $("#rolling-display").html('');
+    previousKey = '='
     return result;
   }
 
@@ -41,6 +55,7 @@ $(document).ready(function(){
         alert('input cant start with operator');
         $("#lower-display").html('0');
       }else{
+
       }
     });
 
@@ -57,4 +72,17 @@ $(document).ready(function(){
     $("#rolling-display").html(rollingResult);
     }  
   }
+
+  function getViewport() {
+
+     var viewPortWidth;
+     var viewPortHeight;
+
+       viewPortWidth = document.getElementsByTagName('body')[0].clientWidth;
+       viewPortHeight = document.getElementsByTagName('body')[0].clientHeight;
+       console.log(viewPortHeight);
+      //  
+       return [viewPortWidth, viewPortHeight];
+      }
 });
+
